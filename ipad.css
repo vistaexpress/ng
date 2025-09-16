@@ -1,0 +1,120 @@
+/* ipad.css - styles targeted for iPad/tablet devices */
+/* Loaded via a media query link in index.html */
+
+:root {
+    --ipad-max-width: 1050px;
+}
+
+/* Container adjustments for tablet */
+.container {
+    max-width: var(--ipad-max-width);
+    padding-left: 28px;
+    padding-right: 28px;
+}
+
+/* Use fluid type scaling for tablets */
+body, .container, .hero, .learn-text {
+    font-size: clamp(15px, 1.6vw, 18px);
+}
+
+h2 { font-size: clamp(20px, 2.4vw, 28px); }
+h3 { font-size: clamp(17px, 1.9vw, 22px); }
+
+/* Testimonial slider tweaks for iPad */
+.testimonial-slider {
+    max-width: 980px;
+}
+
+/* Slider heights: responsive using clamp so it adapts across iPad models */
+.slider-container {
+    height: clamp(380px, 48vh, 700px);
+    min-height: 360px;
+    max-height: 780px;
+}
+
+.slide {
+    /* Prefer contain on smaller tablets to avoid cropping; larger tablets will show cover via media queries */
+    object-fit: contain;
+    object-position: center center;
+    border-radius: 10px;
+}
+
+.slider-button {
+    padding: 14px 16px;
+    font-size: clamp(16px, 1.6vw, 20px);
+    background: rgba(7,16,36,0.55);
+}
+
+.slider-dots {
+    gap: 10px;
+    bottom: 16px;
+}
+
+.slider-dots button {
+    width: 12px;
+    height: 12px;
+}
+
+/* Hero adjustments */
+.hero {
+    margin-top: clamp(-100px, -6vh, -40px); /* reduce overlap on tablet */
+}
+
+/* Facilitator slider size adjustments */
+.facilitator-container {
+    max-width: 820px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.product-video {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+/* Improve spacing for course module layouts */
+.course-module .module-details p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Make nav links more comfortably spaced */
+.nav-links li a {
+    padding: 10px 14px;
+}
+
+/* Touch-friendly increases */
+.slider-button, .slider-dots button, .cta-button, .pad-button {
+    touch-action: manipulation;
+}
+
+/* Slightly reduce card shadows to feel flatter on tablet */
+.course-bonus.dark {
+    box-shadow: 0 8px 20px rgba(2,6,23,0.35);
+}
+
+/* Landscape-specific tweaks for larger iPad Pro sizes */
+@media only screen and (min-width: 1024px) and (orientation: landscape) {
+    .slider-container { height: clamp(520px, 60vh, 820px); min-height: 480px; }
+    h2 { font-size: clamp(22px, 2.8vw, 32px); }
+}
+
+/* Portrait-specific tweaks */
+@media only screen and (min-width: 720px) and (max-width: 1024px) and (orientation: portrait) {
+    .slider-container { height: clamp(420px, 48vh, 620px); min-height: 360px; }
+    .testimonial-slider { max-width: 920px; }
+    .slide { object-fit: contain; }
+}
+
+/* Larger tablets / iPad Pro landscape */
+@media only screen and (min-width: 1025px) and (max-width: 1366px) and (orientation: landscape) {
+    .slider-container { height: clamp(520px, 62vh, 900px); }
+    .testimonial-slider { max-width: 1200px; }
+    .slide { object-fit: cover; }
+}
+
+/* Ensure the ipad stylesheet doesn't break mobile smaller than iPad */
+@media (max-width: 759px) {
+    /* keep tablet file safe - don't override smaller mobile styles */
+}
