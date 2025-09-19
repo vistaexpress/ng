@@ -140,7 +140,8 @@ function toggleMobileNav() {
     if (!isExpanded) {
         // Opening the menu
         navLinks.classList.add('show');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+        // Keep page scrollable while the mobile nav is open so users can scroll the page vertically
+        // (previous behavior set document.body.style.overflow = 'hidden')
     } else {
         // Closing the menu
         closeMobileNav();
@@ -151,7 +152,7 @@ function closeMobileNav() {
     if (!navLinks || !navToggle) return;
     navLinks.classList.remove('show');
     navToggle.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = ''; // Restore scrolling
+    // No body overflow manipulation here so vertical scrolling remains available
 }
 
 // Add event listeners for mobile navigation

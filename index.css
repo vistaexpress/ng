@@ -1,7 +1,15 @@
+:root {
+    /* Keep a consistent mobile header height (adjust if you want a different size) */
+    --nav-height: 64px;
+}
+
 html {
     scroll-padding-top: calc(var(--nav-height) + 8px); /* Anchors respect nav height */
     scroll-behavior: smooth; /* Ensures smooth scrolling remains */
 }
+
+/* Explicit anchor offset for curriculum (Courses) target: 20px top spacing */
+#curriculum-heading { scroll-margin-top: 20px; }
 
 .product-review {
     color: black;
@@ -338,6 +346,28 @@ html {
 /* Mobile nav: show hamburger and hide inline nav links */
 @media (max-width: 900px) {
     .nav-toggle { display: block; }
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--nav-height);
+        z-index: 80; /* above content but below modal overlays */
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* logo left, hamburger right */
+        padding: 0 12px; /* keep controls near edges */
+    }
+
+    /* Ensure the nav container inner layout places logo and toggle at edges */
+    .nav-container { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-container .logo { margin: 0; display: inline-flex; align-items: center; }
+    .nav-toggle { margin-left: auto; }
+
+    /* Ensure main content sits below fixed header to avoid content being covered */
+    main { padding-top: var(--nav-height); }
+
     .nav-links { 
         position: fixed;
         top: var(--nav-height);
@@ -348,17 +378,20 @@ html {
         flex-direction: column;
         gap: 0;
         padding: 1rem 1.25rem 2rem 1.25rem;
-        transform: translateY(-10px);
+        /* Start off-screen to the right and hidden */
+        transform: translateX(100%);
         opacity: 0;
         pointer-events: none;
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
-        transition: opacity 220ms ease, transform 220ms ease;
+        transition: opacity 220ms ease, transform 280ms cubic-bezier(.2,.9,.2,1);
+        will-change: transform, opacity;
         box-shadow: 0 8px 30px rgba(0,0,0,0.08);
         margin-left: 0;
     }
     .nav-links a { color: #111; padding: 0.9rem 0; display:block; }
-    .nav-links.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    /* When menu is shown, slide in from right to left (translateX:100% -> 0) */
+    .nav-links.show { opacity: 1; pointer-events: auto; transform: translateX(0); }
     .nav-links .cta-button { margin-top: 0.75rem; }
 
     /* Make containers use comfortable padding on small screens */
@@ -891,6 +924,33 @@ navbar.scrolled{background:#ffffff;backdrop-filter:blur(6px);box-shadow:0 4px 20
 .testimonials h2{text-align:center;margin-bottom:1rem;color:black}
 .testimonials-slider{display:flex;align-items:center;gap:1rem}
 .slider-track{display:flex;gap:1rem;overflow:hidden}
+/* Ensure anchored headings are visible below fixed nav: give a small top offset */
+#testimonials-heading {
+    scroll-margin-top: 20px;
+}
+
+/* Anchor offset for benefits section */
+#benefits,
+#benefits-heading {
+    scroll-margin-top: 20px;
+}
+
+/* Anchor offset for the second benefits block (join) */
+#benefits-join,
+#benefits-heading-join {
+    scroll-margin-top: 20px;
+}
+
+/* Anchor offset for second testimonials block */
+#testimonials-2,
+#testimonials-heading-2 {
+    scroll-margin-top: 20px;
+}
+
+/* Anchor offset for facilitator heading (About link) */
+#facilitator-heading {
+    scroll-margin-top: 20px;
+}
 .testimonial-card{min-width:320px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:1rem;border-radius:12px}
 .testimonial-image{width:64px;height:64px;border-radius:50%;object-fit:cover;margin-bottom:.6rem}
 .testimonial-text{color:var(--muted);font-style:italic}
@@ -1353,13 +1413,21 @@ footer {
         min-width: 280px;
         height: calc(100vh - var(--nav-height));
         display: flex;
-        transition: right 0.3s ease-in-out;
+        /* start hidden off-screen to the right */
+        transform: translateX(100%);
+        transition: transform 300ms cubic-bezier(.2,.9,.2,1);
+            opacity: 0;
+            pointer-events: none;
+            will-change: transform, opacity;
         box-shadow: -5px 0 30px rgba(0,0,0,0.1);
         margin-left: 0;
             }
     
     .nav-links.show{
-        right: 0;
+        /* slide in from right -> left */
+        transform: translateX(0);
+          opacity: 1;
+          pointer-events: auto;
     }
     
     .nav-links li {
